@@ -1,7 +1,15 @@
-class post
+class Post
 
-  def initilize
-    @create_at = Time.now
+  def self.post_types
+    [Memo, Link, Task]
+  end
+
+  def self.create(type_index)
+    return post_types[type_index].new
+  end
+
+  def initialize
+    @created_at = Time.now
     @text = nil
   end
 
@@ -27,10 +35,10 @@ class post
 
   end
 
-  def file_puth
-    current_path = File.dirname (__FILE__)
+  def file_path
+    current_path = File.dirname(__FILE__)
 
-    file_name = @create_at.strftime("#{self.class.name}_%Y-%m-%d_%H-%M-%S.txt")
+    file_name = @created_at.strftime("#{self.class.name}_%Y-%m-%d_%H-%M-%S.txt")
 
     return current_path + "/" + file_name
   end
